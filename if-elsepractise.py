@@ -1,5 +1,7 @@
 def string_length(mystring):
-    if mystring is int:
-        print("Sorry integers don't have length")
+    if isinstance(mystring, (int, float)):
+        print("Sorry numbers don't have length")
         return 0
     return len(mystring)
+
+c = string_length(10)
