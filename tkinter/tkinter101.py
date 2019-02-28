@@ -19,3 +19,4 @@ t1 = Text(window, height=10, width=20)
 t1.grid(row=0, column=2)
 
 window.mainloop()
+#das sieht aber hässlich aus
