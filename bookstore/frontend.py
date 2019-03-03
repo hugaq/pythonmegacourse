@@ -10,7 +10,6 @@ User can:
     Delete an entry
     Close the application
 """
-
 # Use Tkinter for python 2, tkinter for python 3
 import tkinter as tk
 from backend import *
@@ -41,7 +40,10 @@ class Lists(tk.Listbox):
 
     def get_selected_row(self, event):
         global tpl
-        index = self.curselection()[0]
+        try:
+            index = self.curselection()[0]
+        except:
+            pass
         tpl = str(self.get(index)[0])
         print(tpl)
 
@@ -72,7 +74,6 @@ class Buttons(tk.Button):
         tk.Button.__init__(self, master=parent, text=text, width=width, command=command)
         self.grid(row=row, column=column)
 
-
 class MainApplication():
     def __init__(self, parent, *args, **kwargs):
         #self.parent = parent
@@ -91,8 +92,6 @@ class MainApplication():
 
         l1.config(yscrollcommand=sb1.set)
         sb1.config(command=l1.yview)
-
-
 
         b1 = Buttons(parent=parent, row=2, column=3, text='View all', width=12, command=lambda: l1.view_command(db.view()))
         b2 = Buttons(parent=parent, row=3, column=3, text='Search entry', width=12, command=lambda: self.search_command(l1, e1, e2, e3, e4))
@@ -116,10 +115,6 @@ class MainApplication():
     def update_command(self, l1, e1, e2, e3, e4):
         db.update(id=tpl, title=e1.out(), author=e2.out(), year=e3.out(), isbn=e4.out())
         l1.view_command(['entry updated'])
-
-
-
-
 
 if __name__ == "__main__":
     root = tk.Tk()

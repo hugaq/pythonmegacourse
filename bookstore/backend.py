@@ -1,16 +1,11 @@
 import sqlite3
 
-
-def connect(db):
-    with sqlite3.connect(db) as conn:
-        cur = conn.cursor()
-        return {'connection':conn, 'cursor':cur}
-
 class database():
     def __init__(self, db='books.db'):
-        c = connect(db)
-        self.connection = c['connection']
-        self.cursor = c['cursor']
+        with sqlite3.connect(db) as conn:
+            cur = conn.cursor()
+            self.connection = conn
+            self.cursor = cur
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS BOOK (ID INTEGER PRIMARY KEY NOT NULL, TITLE TEXT, AUTHOR TEXT, YEAR INTEGER, ISBN INTEGER)""")
         self.connection.commit()
 
