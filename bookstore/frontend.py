@@ -35,9 +35,6 @@ class Lists(tk.Listbox):
         for row in lst:
             self.insert(tk.END, row)
 
-    def config(self, **kwargs):
-        self.configure(**kwargs)
-
     def get_selected_row(self, event):
         global tpl
         try:
@@ -66,9 +63,6 @@ class Scrollbars(tk.Scrollbar):
         tk.Scrollbar.__init__(self, master=parent)
         self.grid(row=row, column=column, **kwargs)
 
-    def config(self, **kwargs):
-        self.configure(**kwargs)
-
 class Buttons(tk.Button):
     def __init__(self, parent, row, column, text, width, command=None, **kwargs):
         tk.Button.__init__(self, master=parent, text=text, width=width, command=command)
@@ -90,8 +84,8 @@ class MainApplication():
 
         sb1 = Scrollbars(parent=parent, row=2, column=2, rowspan=6)
 
-        l1.config(yscrollcommand=sb1.set)
-        sb1.config(command=l1.yview)
+        l1.configure(yscrollcommand=sb1.set)
+        sb1.configure(command=l1.yview)
 
         b1 = Buttons(parent=parent, row=2, column=3, text='View all', width=12, command=lambda: l1.view_command(db.view()))
         b2 = Buttons(parent=parent, row=3, column=3, text='Search entry', width=12, command=lambda: self.search_command(l1, e1, e2, e3, e4))
