@@ -27,7 +27,7 @@ class Lists(tk.Listbox):
             else:
                 pass
         tk.Listbox.__init__(self, master=parent, **list_properties)
-        self.bind('<<ListboxSelect>>', self.get_selected_row)
+        #self.bind('<<ListboxSelect>>', self.get_selected_row)
         self.grid(row=row, column=column, **grid_properties)
 
     def view_command(self, lst):
@@ -35,14 +35,15 @@ class Lists(tk.Listbox):
         for row in lst:
             self.insert(tk.END, row)
 
-    def get_selected_row(self, event):
-        global tpl
+    def get_selected_row(self):#, event):
+        #global tpl
         try:
             index = self.curselection()[0]
         except:
             pass
-        tpl = str(self.get(index)[0])
-        print(tpl)
+        #tpl = str(self.get(index)[0])
+        #print(tpl)
+        return str(self.get(index)[0])
 
 class Labels(tk.Label):
     def __init__(self, parent, row, column, Text):
@@ -103,11 +104,11 @@ class MainApplication():
         l1.view_command(['insert successful'])
 
     def delete_command(self, l1):
-        db.delete(tpl)
+        db.delete(l1.get_selected_row())
         l1.view_command(['entry successfully deleted'])
 
     def update_command(self, l1, e1, e2, e3, e4):
-        db.update(id=tpl, title=e1.out(), author=e2.out(), year=e3.out(), isbn=e4.out())
+        db.update(id=l1.get_selected_row(), title=e1.out(), author=e2.out(), year=e3.out(), isbn=e4.out())
         l1.view_command(['entry updated'])
 
 if __name__ == "__main__":
